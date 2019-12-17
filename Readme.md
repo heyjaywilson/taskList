@@ -25,14 +25,28 @@ The first thing we need to do is add an entity to the CoreData model. To do this
 
 The image below highlights where to change the name in the Inspector.
 
-![](task-name)
+![picture of naming task](https://github.com/maeganjwilson/taskList/blob/master/images/task-name.png?raw=true)
 
-A task entity will have the following attributes and types:
+## 2.1 Adding attributes to the Task Entity
 
-- id: UUID
-- name: String
-- isComplete: Bool
+Next, we need the `Task` entity to have attributes to stare the following information:
+
+- id: used as a unique identifier for each task
+- name: what the user will call the task
+- isComplete: defines whether or not a task is completed
+
+To add attributes to `Task`, click the `+` in the Attributes section and give the attribute a name and type. The GIF below shows how to do this.
+
+![GIF of steps above](https://github.com/maeganjwilson/taskList/blob/master/images/task-attribute.gif?raw=true)
+
+This table describes each attribute and the type associated with the attribute.
+
+| Attribute | Type |
+| --------- | ---- |
+| id | UUID |
+| name | String |
+| isComplete | Bool |
 
 The `ProjectName.xcdatamodeld` should now look like the picture below.
 
-![](task-attributes)
+![Picture of Attributes Finished](https://raw.githubusercontent.com/maeganjwilson/taskList/master/images/task-attributes.png)
