@@ -17,7 +17,7 @@ The finished app can be found in this GitHub repo:
 
 Create a new Xcode project for a single view iOS app.
 
-Check the boxes for SwiftUI and to use CoreData
+Check the boxes for SwiftUI and to use Core Data.
 
 # 2. CoreData Entities and Attributes
 
@@ -29,13 +29,13 @@ The image below highlights where to change the name in the Inspector.
 
 ## 2.1 Adding attributes to the Task Entity
 
-Next, we need the `Task` entity to have attributes to stare the following information:
+Next, we need the `Task` entity to have attributes to store the following information:
 
 - id: used as a unique identifier for each task
 - name: what the user will call the task
 - isComplete: defines whether or not a task is completed
 
-To add attributes to `Task`, click the `+` in the Attributes section and give the attribute a name and type. The GIF below shows how to do this.
+To add attributes to `Task`, click the `+` in the Attributes section, and give the attribute a name and type. The GIF below shows how to do this.
 
 ![GIF of steps above](https://github.com/maeganjwilson/taskList/blob/master/images/task-attribute.gif?raw=true)
 
@@ -79,7 +79,7 @@ struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     
     var body: some View {
-    	Text("Hello world!")
+        Text("Hello world!")
     }
 }
 
@@ -93,7 +93,7 @@ struct ContentView_Previews: PreviewProvider {
 
 ### What did we do?
 
-We declared context as an environment variable meaning that the value is going to come from the view's environment. In this case, it is going to come from `SceneDelegate.swift` on lines 23 through 27 where `context` is declared and then given to `ContentView()`.
+We declared context as an environment variable, meaning that the value is going to come from the view's environment. In this case, it is going to come from `SceneDelegate.swift` on lines 23 through 27 where `context` is declared and then given to `ContentView()`.
 
 # 3. UI Time and make it work!
 
@@ -101,7 +101,7 @@ We are now going to work on the UI in `ContentView.swift`.
 
 ## 3.1 Adding a `TextField`
 
-Let's start by adding a `TextField` to the app. Change the `Text(HelloWorld)` to `TextField(title: StringProtocol, text:Binding<String>)`. `TextField` needs two properties, a `StringProtocol` and a `Binding<String>`. For the `StringProtocol`, give it a property of `"Task Name"`. When the `TextField` is empty, Task Name will appear in a light gray color.
+Let's start by adding a `TextField` to the app. Change the `Text(HelloWorld)` to `TextField(title: StringProtocol, text:Binding<String>)`. `TextField` needs two properties, a `StringProtocol` and a `Binding<String>`. For the `StringProtocol`, give it a property of `"Task Name"`. When the `TextField` is empty, Task Name will appear in light gray.
 
 Now, we still need a `Binding<String>`, this isn't as easy as `TextField`. We need to declare a variable for it. Before the `body` variable declaration, add `@State private var taskName: String = ""`, and then make the second property of `TextField` `$taskName`. `ContentView.swift` should now look like this:
 
@@ -110,11 +110,11 @@ Now, we still need a `Binding<String>`, this isn't as easy as `TextField`. We ne
 struct ContentView: View {
     @Environment(\.managedObjectContext) var context
     
-	// this is the variable we added
+    // this is the variable we added
     @State private var taskName: String = ""
     
     var body: some View {
-    	// this is the TextField that we added
+        // this is the TextField that we added
         TextField("Task Name", text: $taskName)
     }
 }
@@ -137,7 +137,7 @@ First, this is declaring a [State](https://developer.apple.com/documentation/swi
 
 ## 3.2 Adding the task to our CoreData
 
-First, we need to add a button so that when the user is done typing they can then add the task to their list.
+First, we need to add a button so that when the user is done typing, they can then add the task to their list.
 
 To do this, we are going to wrap `TextField` in an `HStack` and then add a `Button()`. When adding the button, the action should be `self.addTask()` and label in the button should be `Text("Add Task)`.
 
@@ -146,14 +146,14 @@ Here's what the code in `body` should look like now.
 ```swift
 
 var body: some View {
-	HStack{
-		TextField("Task Name", text: $taskName)
-		Button(action: {
-			self.addTask()
-		}){
-			Text("Add Task")
-		}
-	}
+    HStack{
+        TextField("Task Name", text: $taskName)
+        Button(action: {
+            self.addTask()
+        }){
+            Text("Add Task")
+        }
+    }
 }
 
 ```
@@ -165,17 +165,17 @@ After the `body` variable, add the following:
 ```swift
 
 func addTask() {
-	let newTask = Task(context: context)
-	newTask.id = UUID()
-	newTask.isComplete = false
-	newTask.name = taskName
+    let newTask = Task(context: context)
+    newTask.id = UUID()
+    newTask.isComplete = false
+    newTask.name = taskName
     newTask.dateAdded = Date()
-	
-	do {
-		try context.save()
-	} catch {
-		print(error)
-	}
+    
+    do {
+        try context.save()
+    } catch {
+        print(error)
+    }
 }
 
 ```
@@ -197,9 +197,9 @@ First, we need to make a fetch request to get the tasks that are added. Here's w
 ```swift
 
 @FetchRequest(
-	entity: Task.entity(),
-	sortDescriptors: [NSSortDescriptor(keyPath: \Task.dateAdded, ascending: false)],
-	predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false))
+    entity: Task.entity(),
+    sortDescriptors: [NSSortDescriptor(keyPath: \Task.dateAdded, ascending: false)],
+    predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false))
 ) var notCompletedTasks: FetchedResults<Task>
 
 ```
@@ -216,9 +216,9 @@ Next, we need to make a list that shows the tasks. Let's embed the `HStack` insi
 ```swift
 
 VStack {
-	HStack {
-		// TEXTFIELD CODE HERE
-	}
+    HStack {
+        // TEXTFIELD CODE HERE
+    }
 }
 
 ```
@@ -228,7 +228,7 @@ Now, we can add a list. After the `HStack`, add the following:
 ```swift
 
 List {
-	Text("Hi")
+    Text("Hi")
 }
 
 ```
@@ -242,14 +242,14 @@ Next, we are going to make "Hi" repeat for however many tasks we have. Embed `Te
 ```swift
 
 ForEach(notCompletedTasks){ task in
-	Text("Hi")
+    Text("Hi")
 }
 
 ```
 
 We did not have to specify the `id` for `notCompletedTasks` in the `ForEach` because `Task` conforms to `Identifiable` thanks to our work in step 2.3. 
 
-If you run the app, then putting in a task name and hitting Add Task will make another row of "Hi".
+If you run the app, then put in a task name and hitting Add Task will make another row of "Hi".
 
 Let's make a new `struct` for a TaskRow view that will take in the task in `ContentView.swift`. Above `ContentView()`, add the following:
 
@@ -345,15 +345,15 @@ First, we are going to embed the `TaskRow` into a `Button` and the action of the
 
 ```swift
 Button(action: {
-	self.updateTask(task)
+    self.updateTask(task)
 }){
-	TaskRow(task: task)
+    TaskRow(task: task)
 }
 ```
 
 Next, we need to make a function called `updateTask` so that we can actually update the task and mark as complete.
 
-After `addTask`, let's add `func updateTask(_ task: task){}`. Using the `_` says that we can ignore the argument label when calling the function. If you want to read more about argument labels, [click here](https://blog.appsbymw.com/posts/argument-labels-for-functions-in-swift-2adi/) to read my post about it. Next, let's add the internals of the function.
+After `addTask`, let's add `func updateTask(_ task: task){}`. Using the `_` says that we can ignore the argument label when calling the function. If you want to read more about argument labels, [click here](https://blog.appsbymw.com/posts/argument-labels-for-functions-in-swift-2adi/) to read my post about it, next, let's add the internals of the function.
 
 ```swift
 let isComplete = true
@@ -362,46 +362,16 @@ let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityNa
 fetchRequest.predicate = NSPredicate(format: "id == %@", taskID as CVarArg)
 fetchRequest.fetchLimit = 1
 do {
-	let test = try context.fetch(fetchRequest)
-	let taskUpdate = test[0] as! NSManagedObject
-	taskUpdate.setValue(isComplete, forKey: "isComplete")
+    let test = try context.fetch(fetchRequest)
+    let taskUpdate = test[0] as! NSManagedObject
+    taskUpdate.setValue(isComplete, forKey: "isComplete")
 } catch {
-	print(error)
+    print(error)
 }
 ```
 
 Let's dive into this a bit. The first thing we do is set a constant for the new value of `isComplete` for the task. Then, we set the id of the task to a constant to use in the predicate. Next, we need to create a fetch request that gets the specific task that we are updating. Then we perform the update.
 
-Now if you run the app, the app will allow you to add a task and then tap on it to mark as complete. Since we are only using the non-completed tasks in the list, the completed task disappears from the list. The gif below shows the final app.
+Now, if you run the app, the app will allow you to add a task and then tap on it to mark as complete. Since we are only using the non-completed tasks in the list, the completed task disappears from the list. The gif below shows the final app.
 
 ![](https://github.com/maeganjwilson/taskList/blob/master/images/finished.gif?raw=true)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
