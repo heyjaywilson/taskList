@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TaskRow: View {
     var task: Task
@@ -39,7 +40,11 @@ struct ContentView: View {
             }
             List {
                 ForEach(notCompletedTasks){ task in
-                    TaskRow(task: task)
+                    Button(action: {
+                        self.updateTask(task)
+                    }){
+                        TaskRow(task: task)
+                    }
                 }
             }
         }
@@ -54,6 +59,21 @@ struct ContentView: View {
         
         do {
             try context.save()
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateTask(_ task: Task){
+        let isComplete = true
+        let taskID = task.id! as NSUUID
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Task")
+        fetchRequest.predicate = NSPredicate(format: "id == %@", taskID as CVarArg)
+        fetchRequest.fetchLimit = 1
+        do {
+            let test = try context.fetch(fetchRequest)
+            let taskUpdate = test[0] as! NSManagedObject
+            taskUpdate.setValue(isComplete, forKey: "isComplete")
         } catch {
             print(error)
         }

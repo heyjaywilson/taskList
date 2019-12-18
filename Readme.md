@@ -267,6 +267,105 @@ struct TaskRow: View {
 
 Inside the `Text` you will see that we have to use the nil-coalescing operator, `??`, to give a default value. The reason we do this is because the value for the `Task` attributes are optional and might not have a value.
 
+Now, inside the `ForEach` replace the `Text` with `TaskRow(task)`. `ContentView.swift` should have the following code.
+
+```swift
+
+import SwiftUI
+
+struct TaskRow: View {
+    var task: Task
+    
+    var body: some View {
+        Text(task.name ?? "No name given")
+    }
+}
+
+struct ContentView: View {
+    @Environment(\.managedObjectContext) var context
+    
+    @FetchRequest(
+        entity: Task.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Task.dateAdded, ascending: false)],
+        predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false))
+    ) var notCompletedTasks: FetchedResults<Task>
+    
+    @State private var taskName: String = ""
+    
+    var body: some View {
+        VStack {
+            HStack{
+                TextField("Task Name", text: $taskName)
+                Button(action: {
+                    self.addTask()
+                }){
+                    Text("Add Task")
+                }
+            }
+            List {
+                ForEach(notCompletedTasks){ task in
+                    TaskRow(task: task)
+                }
+            }
+        }
+    }
+    
+    func addTask() {
+        let newTask = Task(context: context)
+        newTask.id = UUID()
+        newTask.isComplete = false
+        newTask.name = taskName
+        newTask.dateAdded = Date()
+        
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+```
+
+Here is how the app should work now.
+
+![Adding a task](https://github.com/maeganjwilson/taskList/blob/master/images/list-finished.gif?raw=true)
+
 # 4. Marking a task as complete!
 
 Now, we are going to mark the task as complete, which should make the task disappear from the list.
+
+First, we are going to embed the `TaskRow` into a `Button` and the action of the button is going to be `self.updateTask(task)`. Now that will look like this.
+
+```swift
+Button(action: {
+	self.updateTask(task)
+}){
+	TaskRow(task: task)
+}
+```
+
+Next, we need to make a function called `updateTask` so that we can actually update the task and mark as complete.
+
+After `addTask`, let's add `func updateTask(_ task: task){}`. Using the `_` says that we can ignore the argument label when calling the function. If you want to read more about argument labels, [click here](https://blog.appsbymw.com/posts/argument-labels-for-functions-in-swift-2adi/) to read my post about it. Next, let's add the internals of the function.
+
+```swift
+let isComplete = true
+let taskID = task.id! as NSUUID
+let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Task")
+fetchRequest.predicate = NSPredicate(format: "id == %@", taskID as CVarArg)
+fetchRequest.fetchLimit = 1
+do {
+	let test = try context.fetch(fetchRequest)
+	let taskUpdate = test[0] as! NSManagedObject
+	taskUpdate.setValue(isComplete, forKey: "isComplete")
+} catch {
+	print(error)
+}
+```
