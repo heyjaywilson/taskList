@@ -9,7 +9,7 @@ This app will have the following features:
 
 Here is what the finished app will look like
 
-TODO: Add image
+![Finished app "design"](https://github.com/maeganjwilson/taskList/blob/master/images/example.png?raw=true)
 
 The finished app can be found in this GitHub repo:
 
@@ -372,6 +372,9 @@ do {
 
 Let's dive into this a bit. The first thing we do is set a constant for the new value of `isComplete` for the task. Then, we set the id of the task to a constant to use in the predicate. Next, we need to create a fetch request that gets the specific task that we are updating. Then we perform the update.
 
+Now if you run the app, the app will allow you to add a task and then tap on it to mark as complete. Since we are only using the non-completed tasks in the list, the completed task disappears from the list. The gif below shows the final app.
+
+![](https://github.com/maeganjwilson/taskList/blob/master/images/finished.gif?raw=true)
 
 
 
