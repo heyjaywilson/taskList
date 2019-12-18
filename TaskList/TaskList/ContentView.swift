@@ -9,8 +9,32 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) var context
+    
+    @State private var taskName: String = ""
+    
     var body: some View {
-        Text("Hello, World!")
+        HStack{
+            TextField("Task Name", text: $taskName)
+            Button(action: {
+                self.addTask()
+            }){
+                Text("Add Task")
+            }
+        }
+    }
+    
+    func addTask() {
+        let newTask = Task(context: context)
+        newTask.id = UUID()
+        newTask.isComplete = false
+        newTask.name = taskName
+        
+        do {
+            try context.save()
+        } catch {
+            print(error)
+        }
     }
 }
 

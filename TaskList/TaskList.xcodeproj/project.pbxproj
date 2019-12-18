@@ -14,6 +14,7 @@
 		37724D8223A97D3E00FA95BD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37724D8123A97D3E00FA95BD /* Assets.xcassets */; };
 		37724D8523A97D3E00FA95BD /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37724D8423A97D3E00FA95BD /* Preview Assets.xcassets */; };
 		37724D8823A97D3E00FA95BD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 37724D8623A97D3E00FA95BD /* LaunchScreen.storyboard */; };
+		37724D9023A9952500FA95BD /* Task+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37724D8F23A9952500FA95BD /* Task+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		37724D8423A97D3E00FA95BD /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		37724D8723A97D3E00FA95BD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37724D8923A97D3E00FA95BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		37724D8F23A9952500FA95BD /* Task+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Task+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				37724D8923A97D3E00FA95BD /* Info.plist */,
 				37724D7C23A97D3D00FA95BD /* TaskList.xcdatamodeld */,
 				37724D8323A97D3E00FA95BD /* Preview Content */,
+				37724D8F23A9952500FA95BD /* Task+Extension.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -153,6 +156,7 @@
 				37724D7923A97D3D00FA95BD /* AppDelegate.swift in Sources */,
 				37724D8023A97D3D00FA95BD /* ContentView.swift in Sources */,
 				37724D7B23A97D3D00FA95BD /* SceneDelegate.swift in Sources */,
+				37724D9023A9952500FA95BD /* Task+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

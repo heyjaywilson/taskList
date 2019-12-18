@@ -7,3 +7,6 @@
 //
 
 import Foundation
+
+extension Task: Identifiable {
+}
