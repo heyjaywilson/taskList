@@ -169,6 +169,7 @@ func addTask() {
 	newTask.id = UUID()
 	newTask.isComplete = false
 	newTask.name = taskName
+    newTask.dateAdded = Date()
 	
 	do {
 		try context.save()
@@ -195,21 +196,77 @@ First, we need to make a fetch request to get the tasks that are added. Here's w
 
 ```swift
 
+@FetchRequest(
+	entity: Task.entity(),
+	sortDescriptors: [NSSortDescriptor(keyPath: \Task.dateAdded, ascending: false)],
+	predicate: NSPredicate(format: "isComplete == %@", NSNumber(value: false))
+) var notCompletedTasks: FetchedResults<Task>
+
 ```
 
+Now, I'm going to break this down a bit.
+- `entity` declares what Core Data entity we are retrieving
+- `sortDescriptors` describes how we want to sort the entities
+- `predicate` acts as a filter
 
+So with the code above, we are asking for all Tasks that are not completed and for those Tasks to be sorted by date newest to oldest.
 
+Next, we need to make a list that shows the tasks. Let's embed the `HStack` inside a `VStack`. It should look like this:
 
+```swift
 
+VStack {
+	HStack {
+		// TEXTFIELD CODE HERE
+	}
+}
 
+```
 
+Now, we can add a list. After the `HStack`, add the following:
 
+```swift
 
+List {
+	Text("Hi")
+}
 
+```
 
+This adds a list underneath the `TextField` and makes the UI look like this.
 
+![](https://github.com/maeganjwilson/taskList/blob/master/images/list-part1.png?raw=true)
 
+Next, we are going to make "Hi" repeat for however many tasks we have. Embed `Text("Hi")` inside a `ForEach` like this:
 
+```swift
 
+ForEach(notCompletedTasks){ task in
+	Text("Hi")
+}
 
+```
 
+We did not have to specify the `id` for `notCompletedTasks` in the `ForEach` because `Task` conforms to `Identifiable` thanks to our work in step 2.3. 
+
+If you run the app, then putting in a task name and hitting Add Task will make another row of "Hi".
+
+Let's make a new `struct` for a TaskRow view that will take in the task in `ContentView.swift`. Above `ContentView()`, add the following:
+
+```swift
+
+struct TaskRow: View {
+    var task: Task
+    
+    var body: some View {
+        Text(task.name ?? "No name given")
+    }
+}
+
+```
+
+Inside the `Text` you will see that we have to use the nil-coalescing operator, `??`, to give a default value. The reason we do this is because the value for the `Task` attributes are optional and might not have a value.
+
+# 4. Marking a task as complete!
+
+Now, we are going to mark the task as complete, which should make the task disappear from the list.
