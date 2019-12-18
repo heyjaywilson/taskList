@@ -37,7 +37,7 @@ struct ContentView: View {
                 }){
                     Text("Add Task")
                 }
-            }
+            }.padding(.all)
             List {
                 ForEach(notCompletedTasks){ task in
                     Button(action: {
