@@ -46,6 +46,7 @@ This table describes each attribute and the type associated with the attribute.
 | id | UUID |
 | name | String |
 | isComplete | Bool |
+| dateAdded | Date |
 
 The `ProjectName.xcdatamodeld` should now look like the picture below.
 
@@ -126,6 +127,8 @@ struct ContentView_Previews: PreviewProvider {
 
 ```
 
+Since we are using SwiftUI, if you use the canvas, you can see what the UI looks like without having to run the app in the simulator.
+
 ### What did we do?
 
 I'm going to explain the parts of `@State private var taskName: String = ""` and why we needed to do this. 
@@ -180,12 +183,19 @@ func addTask() {
 
 In `addTask()`, we made a new Task object and then gave the attributes of `newTask` values. Then we use the `save()` on context to add it to CoreData.
 
-## 3.3 
+Here is what the UI looks like so far.
 
+![](https://github.com/maeganjwilson/taskList/blob/master/images/ui-taskbutton.png?raw=true)
 
+## 3.3 Creating the Task List
 
+It's finally time to create the task list!
 
+First, we need to make a fetch request to get the tasks that are added. Here's what we need to add the `ContentView`.
 
+```swift
+
+```
 
 
 
