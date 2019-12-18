@@ -34,6 +34,7 @@ Next, we need the `Task` entity to have attributes to store the following inform
 - id: used as a unique identifier for each task
 - name: what the user will call the task
 - isComplete: defines whether or not a task is completed
+- dateAdded: to know when a task was added
 
 To add attributes to `Task`, click the `+` in the Attributes section, and give the attribute a name and type. The GIF below shows how to do this.
 
@@ -375,3 +376,9 @@ Let's dive into this a bit. The first thing we do is set a constant for the new 
 Now, if you run the app, the app will allow you to add a task and then tap on it to mark as complete. Since we are only using the non-completed tasks in the list, the completed task disappears from the list. The gif below shows the final app.
 
 ![](https://github.com/maeganjwilson/taskList/blob/master/images/finished.gif?raw=true)
+
+---
+
+If you enjoy my posts, please consider subscribing to my [Patreon](https://www.patreon.com/maeganwilson_) and checking out my other posts!
+
+If you don't like having more subscriptions, consider buying me a coffee instead by clicking the image below! <a href="https://www.buymeacoffee.com/appsbymw" target="_blank"><img src="https://bmc-cdn.nyc3.digitaloceanspaces.com/BMC-button-images/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a>
