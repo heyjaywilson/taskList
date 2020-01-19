@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		372BE07B23D4EB6900C697F4 /* CoreDataHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 372BE07A23D4EB6900C697F4 /* CoreDataHelper.swift */; };
 		37724D7923A97D3D00FA95BD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37724D7823A97D3D00FA95BD /* AppDelegate.swift */; };
 		37724D7B23A97D3D00FA95BD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37724D7A23A97D3D00FA95BD /* SceneDelegate.swift */; };
 		37724D7E23A97D3D00FA95BD /* TaskList.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 37724D7C23A97D3D00FA95BD /* TaskList.xcdatamodeld */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		372BE07A23D4EB6900C697F4 /* CoreDataHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelper.swift; sourceTree = "<group>"; };
 		37724D7523A97D3D00FA95BD /* TaskList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37724D7823A97D3D00FA95BD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		37724D7A23A97D3D00FA95BD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 				37724D7C23A97D3D00FA95BD /* TaskList.xcdatamodeld */,
 				37724D8323A97D3E00FA95BD /* Preview Content */,
 				37724D8F23A9952500FA95BD /* Task+Extension.swift */,
+				372BE07A23D4EB6900C697F4 /* CoreDataHelper.swift */,
 			);
 			path = TaskList;
 			sourceTree = "<group>";
@@ -152,6 +155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				372BE07B23D4EB6900C697F4 /* CoreDataHelper.swift in Sources */,
 				37724D7E23A97D3D00FA95BD /* TaskList.xcdatamodeld in Sources */,
 				37724D7923A97D3D00FA95BD /* AppDelegate.swift in Sources */,
 				37724D8023A97D3D00FA95BD /* ContentView.swift in Sources */,
