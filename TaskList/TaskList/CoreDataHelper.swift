@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-class CoreDataHelper{
+struct CoreDataHelper{
   func addTask(_ taskName: String, context: NSManagedObjectContext){
     let newTask = Task(context: context)
     newTask.id = UUID()

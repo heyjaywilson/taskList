@@ -28,12 +28,14 @@ struct ContentView: View {
   
   @State private var taskName: String = ""
   
+  let core_data_helper = CoreDataHelper()
+  
   var body: some View {
     VStack {
       HStack{
         TextField("Task Name", text: $taskName)
         Button(action: {
-          self.addTask()
+          self.core_data_helper.addTask(self.taskName, context: self.context)
         }){
           Text("Add Task")
         }
@@ -41,7 +43,7 @@ struct ContentView: View {
       List {
         ForEach(notCompletedTasks){ task in
           Button(action: {
-            self.updateTask(task)
+            self.core_data_helper.updateTask(task, context: self.context)
           }){
             TaskRow(task: task)
           }
@@ -50,34 +52,34 @@ struct ContentView: View {
     }
   }
   
-  func addTask() {
-    let newTask = Task(context: context)
-    newTask.id = UUID()
-    newTask.isComplete = false
-    newTask.name = taskName
-    newTask.dateAdded = Date()
-    
-    do {
-      try context.save()
-    } catch {
-      print(error)
-    }
-  }
-  
-  func updateTask(_ task: Task){
-    let isComplete = true
-    let taskID = task.id! as NSUUID
-    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Task")
-    fetchRequest.predicate = NSPredicate(format: "id == %@", taskID as CVarArg)
-    fetchRequest.fetchLimit = 1
-    do {
-      let test = try context.fetch(fetchRequest)
-      let taskUpdate = test[0] as! NSManagedObject
-      taskUpdate.setValue(isComplete, forKey: "isComplete")
-    } catch {
-      print(error)
-    }
-  }
+//  func addTask() {
+//    let newTask = Task(context: context)
+//    newTask.id = UUID()
+//    newTask.isComplete = false
+//    newTask.name = taskName
+//    newTask.dateAdded = Date()
+//
+//    do {
+//      try context.save()
+//    } catch {
+//      print(error)
+//    }
+//  }
+//
+//  func updateTask(_ task: Task){
+//    let isComplete = true
+//    let taskID = task.id! as NSUUID
+//    let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Task")
+//    fetchRequest.predicate = NSPredicate(format: "id == %@", taskID as CVarArg)
+//    fetchRequest.fetchLimit = 1
+//    do {
+//      let test = try context.fetch(fetchRequest)
+//      let taskUpdate = test[0] as! NSManagedObject
+//      taskUpdate.setValue(isComplete, forKey: "isComplete")
+//    } catch {
+//      print(error)
+//    }
+//  }
 }
 
 struct ContentView_Previews: PreviewProvider {
